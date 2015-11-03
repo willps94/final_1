@@ -1,7 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+{% if user.is_authenticated %}
 <div class="jumbotron">
-  <h1>News For Tunes</h1>
-  <p>The one place to post, like, and comment all new Music</p>
+  <h1>Welcome!</h1>
+  <p>To a place where Music takes another form</p>
+  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'  %}">Sign up</a></p>
 </div>
+{% endif %}
 {% endblock %}
