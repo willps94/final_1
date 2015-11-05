@@ -2,7 +2,11 @@
 {% block content %}
 {% if user.is_authenticated %}
 <div class="jumbotron">
-  <h1>Welcome!</h1>
+  <h1>Welcome back!</h1>
+</div>
+{% else %}
+<div class="jumbotron">
+  <h1>Welcome to NewsForTunes</h1>
   <p>To a place where Music takes another form</p>
   <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'  %}">Sign up</a></p>
 </div>
