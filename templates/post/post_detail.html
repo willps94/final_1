@@ -3,4 +3,8 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.description }}</p>
 <p>Asked by {{ post.user.username }} on {{ post.created_at }}</p>
+{% if post.user == user %}
+<p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a>
+</p>
+{% endif %}
 {% endblock %}
