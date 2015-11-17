@@ -33,16 +33,16 @@ class PostDeleteView(DeleteView):
     model = Post
     template_name = 'post/post_confirm_delete.html'
     success_url = reverse_lazy('post_list')
-    
+
 class CommentCreateView(CreateView):
     model = Comment
     template_name = "post/post_form.html"
     fields = ['text']
-    
+
     def get_success_url(self):
         return self.object.post.get_absolute_url()
-      
+
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.instance.post = comment.objects.get(id=self.kwargs['pk'])
+        form.instance.post = Post.objects.get(id=self.kwargs['pk'])
         return super(CommentCreateView, self).form_valid(form)
