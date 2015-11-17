@@ -8,4 +8,5 @@
 </p>
 <p><a href="{% url 'post_delete' pk=post.id %}">Delete Questiom</a></p>
 {% endif %}
+<p><a href="{% url 'comment_create' pk=post.id %}">Post Comment</a></p>
 {% endblock %}
