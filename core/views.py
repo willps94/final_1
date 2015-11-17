@@ -24,6 +24,13 @@ class PostDetailView(DetailView):
     model = Post
     template_name = 'post/post_detail.html'
 
+    def get_context_data(self, **kwargs):
+      context = super(PostDetailView, self).get_context_data(**kwargs)
+      post = Post.objects.get(id=self.kwargs['pk'])
+      comment = Comment.objects.filter(post=post)
+      context['post'] = post
+      return context
+
 class PostUpdateView(UpdateView):
     model = Post
     template_name = 'post/post_form.html'

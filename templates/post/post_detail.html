@@ -8,5 +8,14 @@
 </p>
 <p><a href="{% url 'post_delete' pk=post.id %}">Delete Questiom</a></p>
 {% endif %}
+{% if post.count > 0 %}
+<h3>{{ post.count }} Post{{ posts.count|pluralize }}:</h3>
+{% endif %}
+{% for post in posts %}
+<div class="panel">
+  <p>{{ post.text }}</p>
+  <p>Posted by {{ post.user.username }} on {{ post.created_at }}</p>
+</div>
+{% endfor %}
 <p><a href="{% url 'comment_create' pk=post.id %}">Post Comment</a></p>
 {% endblock %}
