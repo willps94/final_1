@@ -15,6 +15,7 @@
 <div class="panel">
   <p>{{ post.text }}</p>
   <p><a href="{% url 'comment_update' post_pk=post.id comment_pk=comment.id %}">Edit Comment</a></p>
+  <p><a href="{% url 'comment_delete' post_pk=post.id comment_pk=comment.id %}">Delete Comment</p>
   {% if comment.user == user %}
 {% endif %}
   <p>Posted by {{ post.user.username }} on {{ post.created_at }}</p>
