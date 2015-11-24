@@ -3,19 +3,21 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.description }}</p>
 <p>Asked by {{ post.user.username }} on {{ post.created_at }}</p>
+<p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a></p>
+<p><a href="{% url 'post_delete' pk=post.id %}">Delete Post</a></p>
 {% if post.user == user %}
-<p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a>
-</p>
-<p><a href="{% url 'post_delete' pk=post.id %}">Delete Questiom</a></p>
 {% endif %}
 {% if post.count > 0 %}
-<h3>{{ post.count }} Post{{ posts.count|pluralize }}:</h3>
+<h3>{{ post.count }} Post {{ posts.count|pluralize }}:</h3>
 {% endif %}
-{% for post in posts %}
+<p><a href="{% url 'comment_create' pk=post.id %}">Write Comment</a></p>
+{% for post in Posts %}
 <div class="panel">
   <p>{{ post.text }}</p>
+  <p><a href="{% url 'comment_update' post_pk=post.id comment_pk=comment.id %}">Edit Comment</a></p>
+  {% if comment.user == user %}
+{% endif %}
   <p>Posted by {{ post.user.username }} on {{ post.created_at }}</p>
 </div>
 {% endfor %}
-<p><a href="{% url 'comment_create' pk=post.id %}">Post Comment</a></p>
 {% endblock %}
