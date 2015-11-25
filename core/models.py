@@ -22,3 +22,10 @@ class Comment(models.Model):
 
       def __unicode__(self):
         return self.text
+      
+class Vote(models.Model):
+      user = models.ForeignKey(User)
+      post = models.ForeignKey(Post)
+      
+      def __unicode__(self):
+          return "%s upvoted" % (self.user.username)
