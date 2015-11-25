@@ -107,7 +107,7 @@ class VoteFormView(FormView):
 
     def form_valid(self, form):
         user = self.request.user
-        post = Post.objects.get(pk=form.data["question"])
+        post = Post.objects.get(pk=form.data["post"])
         prev_votes = Vote.objects.filter(user=user, post=post)
         has_voted = (prev_votes.count()>0)
         if not has_voted:
