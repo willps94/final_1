@@ -3,24 +3,32 @@
 <h1>{{ post.title }}</h1>
 <p>{{ post.description }}</p>
 <p>Asked by {{ post.user.username }} on {{ post.created_at }}</p>
+{% if post.user == user %}
 <p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a></p>
 <p><a href="{% url 'post_delete' pk=post.id %}">Delete Post</a></p>
-{% if post.user == user %}
 {% endif %}
 {% if post.count > 0 %}
 <h3>{{ post.count }} Post {{ posts.count|pluralize }}:</h3>
 {% endif %}
+{% for comment in comment %}
+<div class="panel">
+  <p>{{ post.text }}</p>
+  {% if comment.user == user %}
+  <p><a href="{% url 'comment_update' post_pk=post.id comment_pk=comment.id %}">Edit Comment</a></p>
+  <p><a href="{% url 'comment_delete' post_pk=post.id comment_pk=comment.id %}">Delete Comment</a></p>
+  {% endif %}
+  <p>Commented by {{ comment.user.username }} on {{ comment.created_at }}</p>
+  <p>{{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count |pluralize }}</p>
+  <form method="post" action="{% url 'vote' %}">
+      {% csrf_token %}
+      <input type="hidden" name="answer" value="{{ comment.id }}"/>
+      <input type="hidden" name="post" value="{{ user.id }}"/>
+      <input type="hidden" name="user" value="{{ user.id }}"/>
+    <button>+</button>
+  </form>
+</div>
+{% endfor %}
 {% if not user_comment %}
 <p><a href="{% url 'comment_create' pk=post.id %}">Post Comment</a></p>
 {% endif %}
-{% for post in Posts %}
-<div class="panel">
-  <p>{{ post.text }}</p>
-  <p><a href="{% url 'comment_update' post_pk=post.id comment_pk=comment.id %}">Edit Comment</a></p>
-  <p><a href="{% url 'comment_delete' post_pk=post.id comment_pk=comment.id %}">Delete Comment</p>
-  {% if comment.user == user %}
-{% endif %}
-  <p>Posted by {{ post.user.username }} on {{ post.created_at }}</p>
-</div>
-{% endfor %}
 {% endblock %}
