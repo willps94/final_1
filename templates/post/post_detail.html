@@ -10,7 +10,9 @@
 {% if post.count > 0 %}
 <h3>{{ post.count }} Post {{ posts.count|pluralize }}:</h3>
 {% endif %}
-<p><a href="{% url 'comment_create' pk=post.id %}">Write Comment</a></p>
+{% if not user_comment %}
+<p><a href="{% url 'comment_create' pk=post.id %}">Post Comment</a></p>
+{% endif %}
 {% for post in Posts %}
 <div class="panel">
   <p>{{ post.text }}</p>
