@@ -2,7 +2,7 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p>{{ post.description }}</p>
-<p>Asked by {{ post.user.username }} on {{ post.created_at }}</p>
+<p>Posted by <a href="{% url 'user_detail' slug=post.user.username %}">{{ post.user.username }}</a> on {{ post.created_at }}</p>
 {% if post.user == user %}
 <p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a></p>
 <p><a href="{% url 'post_delete' pk=post.id %}">Delete Post</a></p>
@@ -17,8 +17,7 @@
   <p><a href="{% url 'comment_update' post_pk=post.id comment_pk=comment.id %}">Edit Comment</a></p>
   <p><a href="{% url 'comment_delete' post_pk=post.id comment_pk=comment.id %}">Delete Comment</a></p>
   {% endif %}
-  <p>Commented by {{ comment.user.username }} on {{ comment.created_at }}</p>
-  <p>{{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count |pluralize }}</p>
+  <p>Commented by <a href="{% url 'user_detail' slug=comment.user.username %}">{{ comment.user.username }}</a> on {{ answer.created_at }} ({{ comment.vote_set.all.count }} Vote{{ comment.vote_set.all.count|pluralize }})</p>
   <form method="post" action="{% url 'vote' %}">
       {% csrf_token %}
       <input type="hidden" name="answer" value="{{ comment.id }}"/>

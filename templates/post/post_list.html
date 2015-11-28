@@ -3,7 +3,7 @@
 {% for post in object_list %}
 <div class="panel">
   <h3><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h3>
-  <p>Posted by {{ post.user.username }} on {{ post.created_at }}</p>
+  <p>Posted by <a href="{% url 'user_detail' slug=post.user.username %}">{{ post.user.username }}</a> on {{ post.created_at }}</p>
 <p>{{ post.vote_set.all.count }} Vote{{ post.vote_set.all.count|pluralize }}</p>
 <form method="post" action="{% url 'vote' %}">
     {% csrf_token %}
