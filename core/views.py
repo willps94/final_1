@@ -11,7 +11,7 @@ class Home(TemplateView):
 class PostCreateView(CreateView):
     model = Post
     template_name = "post/post_form.html"
-    fields = ['title', 'description']
+    fields = ['title', 'description', 'visibility']
     success_url = reverse_lazy('post_list')
 
     def form_valid(self, form):
@@ -61,7 +61,7 @@ class PostDeleteView(DeleteView):
 class CommentCreateView(CreateView):
       model = Comment
       template_name = "post/post_form.html"
-      fields = ['text']
+      fields = ['text', 'visibility']
 
       def get_success_url(self):
           return self.object.post.get_absolute_url()
@@ -136,9 +136,9 @@ class UserDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super(UserDetailView, self).get_context_data(**kwargs)
         user_in_view = User.objects.get(username=self.kwargs['slug'])
-        post = Post.objects.filter(user=user_in_view)
+        post = Post.objects.filter(user=user_in_view).exclude(visibility=1)
         context['post'] = post
-        comment = Comment.objects.filter(user=user_in_view)
+        comment = Comment.objects.filter(user=user_in_view).exclude(visibility=1)
         context['comments'] = comment
         return context
 
