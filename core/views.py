@@ -21,6 +21,7 @@ class PostCreateView(CreateView):
 class PostListView(ListView):
     model = Post
     template_name = "post/post_list.html"
+    paginate_by = 5
 
 class PostDetailView(DetailView):
     model = Post
