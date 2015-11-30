@@ -22,6 +22,12 @@ class PostListView(ListView):
     model = Post
     template_name = "post/post_list.html"
     paginate_by = 5
+    
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        user_votes = Post.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
+        return context
 
 class PostDetailView(DetailView):
     model = Post
@@ -34,6 +40,8 @@ class PostDetailView(DetailView):
         context['post'] = post
         user_comment = Comment.objects.filter(post=post, user=self.request.user)
         context['user_comment'] = user_comment
+        user_votes = Answer.objects.filter(vote__user=self.request.user)
+        context['user_votes'] = user_votes
         return context
 
 class PostUpdateView(UpdateView):
