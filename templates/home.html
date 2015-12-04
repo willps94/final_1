@@ -5,10 +5,14 @@
   <h1>Welcome back!</h1>
 </div>
 {% else %}
-<div class="jumbotron">
-  <h1>Welcome to NewsForTunes</h1>
-  <p>To a place where Music takes another form</p>
-  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'  %}">Sign up</a></p>
+<div class="into-header">
+  <div class="container">
+    <div class="intro-message">
+      <h1>Welcome to News For Tunes</h1>
+      <h3>Where music takes a new form</h3>
+    </div>
+  </div>
 </div>
+  <p><a class="btn btn-lg btn-primary" href="{% url 'registration_register'  %}">Sign up</a></p>
 {% endif %}
 {% endblock %}

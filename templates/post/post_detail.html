@@ -2,6 +2,7 @@
 {% block content %}
 <h1>{{ post.title }}</h1>
 <p>{{ post.description }}</p>
+<p>{% if post.image_file %}<img src="{{ post.image_file.url }}" />{% endif %}</p>
 <p>Posted {% if question.visibility == 0 %} by <a href="{% url 'user_detail' slug=post.user.username %}">{{ post.user.username }}</a> {% endif %} on {{ post.created_at }}</p>
 {% if post.user == user %}
 <p><a href="{% url 'post_update' pk=post.id %}">Edit Post</a></p>
