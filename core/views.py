@@ -40,7 +40,7 @@ class PostDetailView(DetailView):
         context['post'] = post
         user_comment = Comment.objects.filter(post=post, user=self.request.user)
         context['user_comment'] = user_comment
-        user_votes = Answer.objects.filter(vote__user=self.request.user)
+        user_votes = Comment.objects.filter(vote__user=self.request.user)
         context['user_votes'] = user_votes
         return context
 
